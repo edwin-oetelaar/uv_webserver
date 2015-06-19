@@ -12,11 +12,11 @@ LDFLAGS+=-framework CoreServices -dynamiclib
 endif
 
 ifeq (Linux,$(uname_S))
-LDFLAGS+=-ldl -lrt
+LDFLAGS+=-ldl -lrt -pthread -lpthread -lnsl
 endif
 
 webserver: webserver.c libuv/libuv.a http-parser/http_parser.o
-	gcc $(CPPFLAGS) -o webserver webserver.c libuv/libuv.a http-parser/http_parser.o $(LDFLAGS);
+	gcc $(CPPFLAGS) -o webserver webserver.c libuv/.libs/libuv.a http-parser/http_parser.o $(LDFLAGS);
 
 libuv/libuv.a:
 	make -C libuv
